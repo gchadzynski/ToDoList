@@ -34,29 +34,28 @@ class DOMTasks {
             btn.innerText = "Open";
             btn.addEventListener('click',  this.addCloseEvent);
             btn.task = task;
-            btn.onclick =
-                todo.appendChild(li);
+            btn.el = li;
+            todo.appendChild(li);
         } else if (task.status == "close") {
             btn.classList.add("btn-success");
             btn.innerText = "Finish";
-            btn.addEventListener('onclick', addOpenEvent);
+            btn.addEventListener('click', this.addOpenEvent);
             btn.task = task;
+            btn.el = li;
             done.appendChild(li);
         }
     }
 
-    addOpenEvent(event, el, task) {
-        console.log(event);
-        task.open();
-        todo.removeChild(el);
-        done.appendChild(el);
+    addOpenEvent(event) {
+        event.target.task.open();
+        done.removeChild(event.target.el);
+        appToDo.createElement(event.target.task);
     }
 
-    addCloseEvent(event, el, task) {
-        console.log(event);
-        task.close();
-        done.removeChild(el);
-        todo.appendChild(el)
+    addCloseEvent(event) {
+        event.target.task.close();
+        todo.removeChild(event.target.el);
+        appToDo.createElement(event.target.task);
     }
 
     addNewEvent(taskArray) {
