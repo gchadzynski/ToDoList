@@ -32,33 +32,28 @@ class DOMTasks {
         if (task.status == "open") {
             btn.classList.add("btn-primary");
             btn.innerText = "Open";
-            btn.addEventListener('click', function (event, li, task) {
-                //this.addCloseEvent(event, li, task);
-                task.open();
-                todo.removeChild(el);
-                done.appendChild(el);
-            });
+            btn.addEventListener('click',  this.addCloseEvent);
+            btn.task = task;
             btn.onclick =
                 todo.appendChild(li);
         } else if (task.status == "close") {
             btn.classList.add("btn-success");
             btn.innerText = "Finish";
-            btn.addEventListener('click', function (event, li, task) {
-                this.addOpenEvent(event, li, task);
-            });
+            btn.addEventListener('onclick', addOpenEvent);
+            btn.task = task;
             done.appendChild(li);
         }
     }
 
     addOpenEvent(event, el, task) {
-        console.log(task);
+        console.log(event);
         task.open();
         todo.removeChild(el);
         done.appendChild(el);
     }
 
     addCloseEvent(event, el, task) {
-        console.log(task);
+        console.log(event);
         task.close();
         done.removeChild(el);
         todo.appendChild(el)
